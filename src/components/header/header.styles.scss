@@ -1,0 +1,45 @@
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 10px;
+  margin-bottom: 4rem;
+}
+
+.header {
+  background: none;
+  height: 7vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  position: relative;
+}
+
+.logo-container {
+  width: 20%;
+
+  .logo {
+    font-family: 'Satisfy', cursive;
+    font-size: 2.5rem;
+  }
+}
+
+.links-container {
+  text-transform: uppercase;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.6rem;
+
+  .link {
+    margin-left: 2rem;
+    color: #333;
+    transition: 0.25s;
+
+    &:hover {
+      scale: 1.05;
+    }
+  }
+}
