@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import './stopwatch-page.styles.scss';
 
+// material ui
+import { Button, ButtonGroup } from '@material-ui/core';
+
 // components
 import StopWatch from '../../stopwatch/stopwatch.component';
 
@@ -21,7 +24,14 @@ class StopwatchPage extends Component {
           className={`${this.state.paused ? '' : 'pulse'} stopwatch-container`}
         >
           <StopWatch seconds={this.state.seconds} />
-          {this.whichBtnsToShow()}
+          <ButtonGroup
+            size='large'
+            variant='text'
+            color='primary'
+            aria-label='text primary button group'
+          >
+            {this.whichBtnsToShow()}
+          </ButtonGroup>
         </div>
       </div>
     );
@@ -30,19 +40,31 @@ class StopwatchPage extends Component {
   whichBtnsToShow = () => {
     // handles what buttons show up
     if (this.state.seconds === 0 && this.state.paused) {
-      return <button onClick={this.resumeStopwatch}>Start</button>;
+      return (
+        <Button size='large' onClick={this.resumeStopwatch}>
+          Start
+        </Button>
+      );
     } else if (this.state.paused) {
       return (
         <div className='paused-btns'>
-          <button onClick={this.resumeStopwatch}>Resume</button>
-          <button onClick={this.resetStopwatch}>Reset</button>
+          <Button size='large' onClick={this.resumeStopwatch}>
+            Resume
+          </Button>
+          <Button size='large' onClick={this.resetStopwatch}>
+            Reset
+          </Button>
         </div>
       );
     } else {
       return (
         <div className='unpaused-btns'>
-          <button onClick={this.pauseStopwatch}>Pause</button>
-          <button onClick={this.resetStopwatch}>Reset</button>
+          <Button size='large' onClick={this.pauseStopwatch}>
+            Pause
+          </Button>
+          <Button size='large' onClick={this.resetStopwatch}>
+            Reset
+          </Button>
         </div>
       );
     }
