@@ -12,7 +12,7 @@ const Hero = () => {
       <button>Get Started</button>
       <div className='learn-more-container'>
         <h5>Learn More</h5>
-        <i class='fas fa-chevron-down'></i>
+        <i className='fas fa-chevron-down'></i>
       </div>
     </div>
   );
