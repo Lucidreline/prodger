@@ -1,0 +1,43 @@
+.stopwatch-page {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  .stopwatch-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    text-align: center;
+    height: 28rem;
+    width: 28rem;
+    background-color: tomato;
+
+    &.pulse {
+      animation: pulse 5s linear infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.15),
+      0 0 0 0rem rgba(255, 99, 71, 0.1), 0 0 0 0rem rgba(255, 99, 71, 0.05);
+    transform: scale(1.1);
+  }
+
+  95% {
+    box-shadow: 0 0 0 80rem rgba(255, 99, 71, 0),
+      0 0 0 100rem rgba(255, 99, 71, 0), 0 0 0 120rem rgba(255, 99, 71, 0);
+    transform: scale(1);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0), 0 0 0 0 rgba(255, 99, 71, 0);
+    transform: scale(1);
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './stopwatch.styles.scss';
 import FormatTime from './stopwatch.utils';
 
 function stopwatch({ seconds }) {

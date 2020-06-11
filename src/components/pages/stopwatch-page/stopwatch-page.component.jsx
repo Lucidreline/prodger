@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './stopwatch-page.styles.scss';
+
 // components
 import StopWatch from '../../stopwatch/stopwatch.component';
 
@@ -15,8 +17,12 @@ class StopwatchPage extends Component {
   render() {
     return (
       <div className='stopwatch-page'>
-        <StopWatch seconds={this.state.seconds} />
-        {this.whichBtnsToShow()}
+        <div
+          className={`${this.state.paused ? '' : 'pulse'} stopwatch-container`}
+        >
+          <StopWatch seconds={this.state.seconds} />
+          {this.whichBtnsToShow()}
+        </div>
       </div>
     );
   }
