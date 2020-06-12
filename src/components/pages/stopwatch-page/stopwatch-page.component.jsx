@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './stopwatch-page.styles.scss';
 
 // material ui
-import { Button, ButtonGroup } from '@material-ui/core';
+import { Button, ButtonGroup, TextField } from '@material-ui/core';
 
 // components
 import StopWatch from '../../stopwatch/stopwatch.component';
@@ -21,18 +21,6 @@ class StopwatchPage extends Component {
   }
 
   render() {
-    window.addEventListener('mouseup', e => {
-      // this will close the save modal when user clicks outside of it
-      var saveModal = document.getElementById('save-modal');
-      if (
-        this.state.openSaveModal &&
-        e.target !== saveModal &&
-        e.target.parentNode !== saveModal
-      ) {
-        this.setState({ openSaveModal: false });
-      }
-    });
-
     return (
       <div className='stopwatch-page'>
         <div
@@ -42,7 +30,33 @@ class StopwatchPage extends Component {
           id='save-modal-container'
         >
           <div className='save-modal' id='save-modal'>
-            <h2>Hi, im the modal</h2>
+            <form action=''>
+              <TextField
+                helperText=''
+                label='Name'
+                name='name'
+                id='outlined-basic'
+                variant='outlined'
+                margin='dense'
+              />
+              <TextField
+                helperText='Math Studing, Workout, etc'
+                label='Category'
+                name='category'
+                id='outlined-basic'
+                variant='outlined'
+                margin='dense'
+              />
+              <TextField
+                helperText=''
+                label='Description'
+                name='description'
+                id='outlined-basic'
+                variant='outlined'
+                margin='dense'
+                multiline
+              />
+            </form>
           </div>
         </div>
         <div
@@ -129,7 +143,24 @@ class StopwatchPage extends Component {
   };
 
   saveStopwatch = () => {
-    this.setState({ openSaveModal: true });
+    this.setState({ openSaveModal: true }, () => {
+      document.addEventListener('click', e => {
+        const flyoutElement = document.getElementById('save-modal');
+        let targetElement = e.target; // clicked element
+
+        do {
+          if (targetElement === flyoutElement) {
+            return;
+          }
+          // Go up the DOM
+          targetElement = targetElement.parentNode;
+        } while (targetElement);
+
+        // Clicked Outside
+        this.setState({ openSaveModal: false });
+      });
+    });
+
     // const { seconds, timeStarted, sessions } = this.state;
     // const newSession = {
     //   seconds,
