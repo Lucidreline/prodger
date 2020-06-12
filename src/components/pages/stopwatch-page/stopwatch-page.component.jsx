@@ -30,9 +30,12 @@ class StopwatchPage extends Component {
           id='save-modal-container'
         >
           <div className='save-modal' id='save-modal'>
+            <h5>Save Session</h5>
             <form action=''>
               <TextField
-                helperText=''
+                className='material-ui-component text-input'
+                fullWidth
+                helperText='ex. Math exam study'
                 label='Name'
                 name='name'
                 id='outlined-basic'
@@ -40,7 +43,9 @@ class StopwatchPage extends Component {
                 margin='dense'
               />
               <TextField
-                helperText='Math Studing, Workout, etc'
+                className='material-ui-component text-input'
+                fullWidth
+                helperText='class, Workout, etc'
                 label='Category'
                 name='category'
                 id='outlined-basic'
@@ -48,7 +53,9 @@ class StopwatchPage extends Component {
                 margin='dense'
               />
               <TextField
-                helperText=''
+                className='material-ui-component text-input'
+                fullWidth
+                helperText='ex. went over study guide'
                 label='Description'
                 name='description'
                 id='outlined-basic'
@@ -57,6 +64,23 @@ class StopwatchPage extends Component {
                 multiline
               />
             </form>
+            <ButtonGroup
+              size='large'
+              variant='text'
+              color='primary'
+              aria-label='text primary button group'
+            >
+              <Button
+                onClick={this.closeSaveModus}
+                className='material-ui-component'
+                size='large'
+              >
+                Cancel
+              </Button>
+              <Button className='material-ui-component' size='large'>
+                Save
+              </Button>
+            </ButtonGroup>
           </div>
         </div>
         <div
@@ -80,20 +104,36 @@ class StopwatchPage extends Component {
     // handles what buttons show up
     if (this.state.seconds === 0 && this.state.paused) {
       return (
-        <Button size='large' onClick={this.startStopwatch}>
+        <Button
+          className='material-ui-component'
+          size='large'
+          onClick={this.startStopwatch}
+        >
           Start
         </Button>
       );
     } else if (this.state.paused) {
       return (
         <div className='paused-btns'>
-          <Button size='large' onClick={this.saveStopwatch}>
+          <Button
+            className='material-ui-component'
+            size='large'
+            onClick={this.openSaveModus}
+          >
             Save
           </Button>
-          <Button size='large' onClick={this.resumeStopwatch}>
+          <Button
+            className='material-ui-component'
+            size='large'
+            onClick={this.resumeStopwatch}
+          >
             Resume
           </Button>
-          <Button size='large' onClick={this.resetStopwatch}>
+          <Button
+            className='material-ui-component'
+            size='large'
+            onClick={this.resetStopwatch}
+          >
             Reset
           </Button>
         </div>
@@ -101,10 +141,18 @@ class StopwatchPage extends Component {
     } else {
       return (
         <div className='unpaused-btns'>
-          <Button size='large' onClick={this.pauseStopwatch}>
+          <Button
+            className='material-ui-component'
+            size='large'
+            onClick={this.pauseStopwatch}
+          >
             Pause
           </Button>
-          <Button size='large' onClick={this.resetStopwatch}>
+          <Button
+            className='material-ui-component'
+            size='large'
+            onClick={this.resetStopwatch}
+          >
             Reset
           </Button>
         </div>
@@ -142,35 +190,32 @@ class StopwatchPage extends Component {
     });
   };
 
-  saveStopwatch = () => {
+  oustideClickListener = e => {
+    const flyoutElement = document.getElementById('save-modal');
+    let targetElement = e.target; // clicked element
+
+    do {
+      if (targetElement === flyoutElement) {
+        return;
+      }
+      // Go up the DOM
+      targetElement = targetElement.parentNode;
+    } while (targetElement);
+
+    // Clicked Outside
+    this.closeSaveModus();
+  };
+
+  openSaveModus = () => {
     this.setState({ openSaveModal: true }, () => {
-      document.addEventListener('click', e => {
-        const flyoutElement = document.getElementById('save-modal');
-        let targetElement = e.target; // clicked element
-
-        do {
-          if (targetElement === flyoutElement) {
-            return;
-          }
-          // Go up the DOM
-          targetElement = targetElement.parentNode;
-        } while (targetElement);
-
-        // Clicked Outside
-        this.setState({ openSaveModal: false });
-      });
+      document.addEventListener('click', this.oustideClickListener);
     });
+  };
 
-    // const { seconds, timeStarted, sessions } = this.state;
-    // const newSession = {
-    //   seconds,
-    //   timeStarted,
-    //   timeEnded: Date.now(),
-    // };
-    // sessions.push(newSession);
-    // this.setState({ sessions }, () => {
-    //   this.resetStopwatch();
-    // });
+  closeSaveModus = () => {
+    this.setState({ openSaveModal: false }, () => {
+      document.removeEventListener('click', this.oustideClickListener);
+    });
   };
 
   componentWillUnmount() {
